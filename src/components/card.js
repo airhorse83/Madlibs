@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './input';
+import Content from './content';
 
 class Card extends Component {
 
@@ -23,13 +24,20 @@ class Card extends Component {
             nounThree: '',
             celebfour: '',
             adjectiveFive: '',
+            contentVisible: false
         }
        
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleInputChange(event) {
         this.setState({ [event.target.name]: event.target.value })
+    }
+    
+    handleFormSubmit(event) {
+        event.preventDefault()
+        this.setState({ contentVisible: !this.state.contentVisible })
     }
 
 
@@ -53,19 +61,25 @@ class Card extends Component {
 
             {title: 'Adjective', state: this.state.adjectiveFour, name: 'adjectiveFour'},
             {title: 'Noun', state: this.state.nounThree, name: 'nounThree'},
-            {title: 'Celebrity', state: this.state.celebThree, name: 'celebThree'},
+            {title: 'Celebrity', state: this.state.celebThree, name: 'celebFour'},
             {title: 'Adjective', state: this.state.adejctiveFive, name: 'adjectiveFive'},
         ]
 
 
         return (
-            <div className="card">
-               <h1>{this.state.color}</h1>
+            <form onSubmit={this.handleFormSubmit} className="card">
+                <div className="card__inputs">
+               
                {
                    inputData.map(data => Input( (data), this.handleInputChange ))
                }
-
-            </div>
+               </div>
+               <button type="submit">{!this.state.contentVisible ? 'Generate Mad Lib' : 'Clear Form'}</button>
+               {
+                   this.state.contentVisible ? <Content data={this.state}/> : ''
+               }
+               
+            </form>
         )
     }
 }
