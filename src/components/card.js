@@ -73,7 +73,7 @@ class Card extends Component {
             {title: 'Adjective', state: this.state.adjectiveFour, name: 'adjectiveFour'},
             {title: 'Noun', state: this.state.nounThree, name: 'nounThree'},
             {title: 'Celebrity', state: this.state.celebFour, name: 'celebFour'},
-            {title: 'Adjective', state: this.state.adejctiveFive, name: 'adjectiveFive'},
+            {title: 'Adjective', state: this.state.adjectiveFive, name: 'adjectiveFive'},
         ]
 
 
@@ -82,7 +82,9 @@ class Card extends Component {
                 <div className="card__inputs">
                
                {
-                   inputData.map(data => Input( (data), this.handleInputChange ))
+                   inputData.map((data, index) => {
+                    return Input( (data), this.handleInputChange, index) 
+                })
                }
                </div>
                <button type="submit">{!this.state.contentVisible ? 'Generate Mad Lib' : 'Clear Form'}</button>
